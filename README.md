@@ -28,4 +28,4 @@ Scripts Description
 - Detection.ps1: This script checks if the dynamic wallpapers have been applied successfully. It is used by Intune to confirm the app installation status.
 
 Support
-For issues, questions, or contributions, please open an issue on the project's GitHub repository.
+For issues, questions, or contributions, please open an issue on the project's GitHub repository.# DynamicWallpaper
