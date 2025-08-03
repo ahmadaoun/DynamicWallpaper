@@ -4,6 +4,7 @@ param(
     [string]$LockScreenImageUrl
 )
 
+$global:logStarted = $false
 function Download-Image {
     param (
         [string]$Url,
@@ -51,7 +52,12 @@ function Set-DesktopWallpaper {
     if (!(Test-Path -Path $logPath)) {
         New-Item -Path $logPath -ItemType Directory -Force | Out-Null
     }
+    try {
     Start-Transcript -Path $logFile -Force
+    $global:logStarted = $true
+} catch {
+    Write-Host "Could not start transcript: $_"
+}
 
     if (!(Test-Path -Path $imagespath)) {
         New-Item -Path $imagespath -ItemType Directory -Force | Out-Null
@@ -112,11 +118,11 @@ function Set-DesktopWallpaper {
         }
     } catch {
         Write-Warning $_.Exception.Message
-        Stop-Transcript
+        if ($global:logStarted) { Stop-Transcript }
         throw $_.Exception.Message
     } finally {
         Write-Host "Script completed successfully."
-        Stop-Transcript
+        if ($global:logStarted) { Stop-Transcript }
     }
 }
 
@@ -159,7 +165,12 @@ function Set-LockScreenWallpaper {
     if (!(Test-Path -Path $logPath)) {
         New-Item -Path $logPath -ItemType Directory -Force | Out-Null
     }
+    try {
     Start-Transcript -Path $logFile -Force
+    $global:logStarted = $true
+} catch {
+    Write-Host "Could not start transcript: $_"
+}
 
     if (!(Test-Path -Path $imagespath)) {
         New-Item -Path $imagespath -ItemType Directory -Force | Out-Null
@@ -214,11 +225,11 @@ function Set-LockScreenWallpaper {
         }
     } catch {
         Write-Warning $_.Exception.Message
-        Stop-Transcript
+        if ($global:logStarted) { Stop-Transcript }
         throw $_.Exception.Message
     } finally {
         Write-Host "Script completed successfully."
-        Stop-Transcript
+        if ($global:logStarted) { Stop-Transcript }
     }
 }
 

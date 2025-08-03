@@ -15,9 +15,9 @@ Installation
 1. Prepare the Win32 app in Intune: Package the Install.ps1 and Detection.ps1 scripts along with any other required files into an Intune Win32 app package.
 
 2. Configure the Install Command: Use the following command as the install command for your Win32 app in Intune:
-%windir%\sysnative\windowspowershell\v1.0\powershell.exe -executionPolicy bypass -windowstyle hidden -file "./Install.ps1" -DesktopImageUrl "https://tuneMDM.com/desktopimage.png" -LockScreenImageUrl "https://tuneMDM.com/lockscreenimage.png"
+%windir%\sysnative\windowspowershell\v1.0\powershell.exe -executionPolicy bypass -windowstyle hidden -file Install.ps1" -DesktopImageUrl "https://tunemdm.com/wp-content/uploads/2024/06/image-73.png" -LockScreenImageUrl "https://tunemdm.com/wp-content/uploads/2024/06/image-78.png"
 
-Note: Replace https://tuneMDM.com/desktopimage.png and https://tuneMDM.com/lockscreenimage.png with the URLs of your desired desktop and lock screen images.
+Note: Replace https://tunemdm.com/wp-content/uploads/2024/06/image-73.png and https://tunemdm.com/wp-content/uploads/2024/06/image-78.png with the URLs of your desired desktop and lock screen images.
 
 3. Detection Script: Use Detection.ps1 as the detection rule for the Win32 app to verify the installation status on the client devices.
 
