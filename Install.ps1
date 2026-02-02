@@ -10,7 +10,7 @@ function Download-Image {
         [string]$Url,
         [string]$Destination
     )
-    Invoke-WebRequest -Uri $Url -OutFile $Destination -ErrorAction Stop
+    Invoke-WebRequest -usebasicparsing -Uri $Url -OutFile $Destination -ErrorAction Stop
 }
 
 function Set-DesktopWallpaper {
@@ -22,7 +22,7 @@ function Set-DesktopWallpaper {
     
     # Check if the file exists online
     try {
-        $response = Invoke-WebRequest -Uri $DesktopImageUrl -Method Head -ErrorAction Stop
+        $response = Invoke-WebRequest -usebasicparsing -Uri $DesktopImageUrl -Method Head -ErrorAction Stop
         if ($response.StatusCode -eq 200) {
             Write-Host "File found at $DesktopImageUrl"
         } else {
@@ -40,7 +40,7 @@ function Set-DesktopWallpaper {
     $DesktopRegistryURL = "DesktopImageUrl"
     $RegistryPath = "HKLM:\Software\$AppName"
     $CurrentDesktopImageHash = (Get-ItemProperty -Path $RegistryPath -Name $DesktopRegistryKeyName -ErrorAction SilentlyContinue).$DesktopRegistryKeyName
-    $DesktopImageHash = (Invoke-WebRequest -Uri $DesktopImageUrl -Method Head).Headers.ETag
+    $DesktopImageHash = (Invoke-WebRequest -usebasicparsing -Uri $DesktopImageUrl -Method Head).Headers.ETag
     $DesktopImageHash = $DesktopImageHash -replace '^[^"]+"|"[^"]*$', ''
     $fileExtension = [System.IO.Path]::GetExtension($DesktopImageUrl)
     $DesktopImagePath = "$env:ProgramData\$AppName\Images\desktop-background$fileExtension"
@@ -135,7 +135,7 @@ function Set-LockScreenWallpaper {
 
     # Check if the file exists online
     try {
-        $response = Invoke-WebRequest -Uri $LockScreenImageUrl -Method Head -ErrorAction Stop
+        $response = Invoke-WebRequest -usebasicparsing -Uri $LockScreenImageUrl -Method Head -ErrorAction Stop
         if ($response.StatusCode -eq 200) {
             Write-Host "File found at $LockScreenImageUrl"
         } else {
@@ -153,7 +153,7 @@ function Set-LockScreenWallpaper {
     $LockScreenRegistryURL = "LockScreenURL"
     $RegistryPath = "HKLM:\Software\$AppName"
     $CurrentLockScreenImageHash = (Get-ItemProperty -Path $RegistryPath -Name $LockScreenRegistryKeyName -ErrorAction SilentlyContinue).$LockScreenRegistryKeyName
-    $LockScreenImageHash = (Invoke-WebRequest -Uri $LockScreenImageUrl -Method Head).Headers.ETag
+    $LockScreenImageHash = (Invoke-WebRequest -usebasicparsing -Uri $LockScreenImageUrl -Method Head).Headers.ETag
     $LockScreenImageHash = $LockScreenImageHash -replace '^[^"]+"|"[^"]*$', ''
     $fileExtension = [System.IO.Path]::GetExtension($LockScreenImageUrl)
     $LockScreenImagePath = "$env:ProgramData\$AppName\Images\lockscreen-background$fileExtension"

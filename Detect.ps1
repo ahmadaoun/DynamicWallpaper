@@ -16,7 +16,7 @@ if ($DesktopImageUrl) {
     $DesktopImagetrue = $true
     $DesktopRegistryKeyName = "DesktopImageHash"
     $CurrentDesktopImageHash = (Get-ItemProperty -Path $RegistryPath -Name $DesktopRegistryKeyName -ErrorAction SilentlyContinue).$DesktopRegistryKeyName
-    $DesktopImageHash = (Invoke-WebRequest -Uri $DesktopImageUrl -Method Head).Headers.ETag
+    $DesktopImageHash = (Invoke-WebRequest -usebasicparsing -Uri $DesktopImageUrl -Method Head).Headers.ETag
     $DesktopImageHash = $DesktopImageHash -replace '^[^"]+"|"[^"]*$', ''
 
     # Compare hashes
@@ -31,7 +31,7 @@ if ($LockScreenImageUrl) {
     # Check if the file exists online
     $LockScreenRegistryKeyName = "LockScreenImageHash"
     $CurrentLockScreenImageHash = (Get-ItemProperty -Path $RegistryPath -Name $LockScreenRegistryKeyName -ErrorAction SilentlyContinue).$LockScreenRegistryKeyName
-    $LockScreenImageHash = (Invoke-WebRequest -Uri $LockScreenImageUrl -Method Head).Headers.ETag
+    $LockScreenImageHash = (Invoke-WebRequest -usebasicparsing -Uri $LockScreenImageUrl -Method Head).Headers.ETag
     $LockScreenImageHash = $LockScreenImageHash -replace '^[^"]+"|"[^"]*$', ''
 
     # Compare hashes
